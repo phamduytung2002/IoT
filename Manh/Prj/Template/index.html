@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB Data</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Latest Data from MongoDB</h1>
+        {% if data %}
+            <div class="alert alert-info">
+                <h4>Temperature: {{ data[-1]['temperature'] }}°C</h4>
+                <h4>Humidity: {{ data[-1]['humidity'] }}%</h4>
+                <h4>Date: {{ data[-1]['date'] }}</h4>
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                <h4>No data found</h4>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
