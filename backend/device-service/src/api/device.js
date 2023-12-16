@@ -100,9 +100,48 @@ module.exports = (app) => {
         }
     }
     );
-     
-
-    
+    //api get DHT11 data by ID
+    app.get("/device/getdht11byid", async function (request, response) {
+        console.log("Received 'get dht11 data by ID' request");
+        const { ID } = request.query;
+        try {
+            const result = await DHT11.find({ ID }).exec();
+            console.log(result);
+            response.status(200).json(result);
+        } catch (err) {
+            console.error('Error when getting dht11 data:', err);
+            response.status(500).json({ message: "Internal Server Error" });
+        }
+    }
+    );
+    //api get water sensor data by ID
+    app.get("/device/getwatersensorbyid", async function (request, response) {
+        console.log("Received 'get water sensor data by ID' request");
+        const { ID } = request.query;
+        try {
+            const result = await WaterSensor.find({ ID }).exec();
+            console.log(result);
+            response.status(200).json(result);
+        } catch (err) {
+            console.error('Error when getting water sensor data:', err);
+            response.status(500).json({ message: "Internal Server Error" });
+        }
+    }
+    );
+    //api get relay data by ID
+    app.get("/device/getrelaybyid", async function (request, response) {
+        console.log("Received 'get relay data by ID' request");
+        const { ID } = request.query;
+        try {
+            const result = await Relay.find({ ID }).exec();
+            console.log(result);
+            response.status(200).json(result);
+        } catch (err) {
+            console.error('Error when getting relay data:', err);
+            response.status(500).json({ message: "Internal Server Error" });
+        }
+    }
+    );
         //api POST
     // api add device
     app.post("/device/createdevice", async (req, res) => {
@@ -201,7 +240,6 @@ module.exports = (app) => {
             response.status(500).json({ message: "Error" });
         }
     });
-
     //api PUT
     //api update device by ID
     app.put("/device/updatedevicebyid", async function (request, response) {
