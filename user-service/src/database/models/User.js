@@ -20,7 +20,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     username: String,
     password: String,
-    idHome: Array,
+    listHome: Array,
 });
 
 module.exports =  mongoose.model('user', UserSchema);
