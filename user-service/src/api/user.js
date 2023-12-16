@@ -43,15 +43,52 @@ module.exports = (app) => {
     // PublishMessage(channel, CUSTOMER_SERVICE, JSON.stringify(data));
 
     // create account route
-    app.post("/user/create", async (req, res, next) => {
-        const { username, password, idHome } =
+    app.post("/user/register", async (req, res, next) => {
+        const { username, password, listHome } =
           req.body;
         // validation
         const { data } = await service.CreateAccount({
           username,
           password,
+          listHome,
+        });
+        return res.json(data);
+      });
+
+    // login account route
+    app.post("/user/login", async (req, res, next) => {
+        const { username, password } =
+          req.body;
+        // validation
+        const { data } = await service.LoginAccount({
+          username,
+          password,
+        });
+        return res.json(data);
+      });
+    
+    // add idHome to listHome route
+    app.post("/user/addHome", async (req, res, next) => {
+        const { username, idHome } =
+          req.body;
+        // validation
+        const { data } = await service.AddHome({
+          username,
           idHome,
         });
         return res.json(data);
       });
+
+    // delete idHome route
+    app.post("/user/deleteHome", async (req, res, next) => {
+        const { username, idHome } =
+          req.body;
+        // validation
+        const { data } = await service.DeleteHome({
+          username,
+          idHome,
+        });
+        return res.json(data);
+      });
+    
 }
