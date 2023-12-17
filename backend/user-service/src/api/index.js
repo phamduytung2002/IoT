@@ -1,3 +1,3 @@
 module.exports = {
-  device: require("./device"),
+  user: require("./user"),
 };

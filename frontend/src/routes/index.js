@@ -5,13 +5,14 @@ import { protectedRoutes } from "./protected";
 import { publicRoutes } from "./public";
 import { NotFoundPage } from "../components/NotFoundPage";
 import Home from "../components/Home";
-import { userFn } from "../utils/auth";
+
+import Cookies from "js-cookie";
 export const AppRoutes = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // const user = { data: "Bien" };
-  // const user = {};
-  const user = userFn();
+
+  const user = Cookies.get("userToken") || null;
+  // console.log(user);
 
   const commonRoutes = [
     { path: BASE_PATH, element: <Home /> },
@@ -22,7 +23,7 @@ export const AppRoutes = () => {
   ];
   useEffect(() => {
     if (
-      user.data == null &&
+      user == null &&
       //   location.pathname !== PATHS.FORGETPASSWORD &&
       location.pathname !== PATHS.REGISTER &&
       location.pathname !== PATHS.LOGIN &&
@@ -30,8 +31,8 @@ export const AppRoutes = () => {
     ) {
       navigate(PATHS.LOGIN, { state: { from: location }, replace: true });
     }
-  }, [location.pathname, user.data]);
-  const routes = user.data ? protectedRoutes : publicRoutes;
+  }, [location.pathname, user]);
+  const routes = !!user ? protectedRoutes : publicRoutes;
   const element = useRoutes([...routes, ...commonRoutes]);
   return <>{element}</>;
 };

@@ -9,4 +9,8 @@ export const protectedRoutes = [
       </>
     ),
   },
+  // {
+  //   path: PATHS.LOGOUT,
+  //   element: <>Đang đăng xuất...</>,
+  // },
 ];

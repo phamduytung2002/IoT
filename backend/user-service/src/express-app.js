@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 
-const { device } = require("./api");
+const { user } = require("./api");
 
 
 module.exports = async (app) => {
@@ -9,7 +9,7 @@ module.exports = async (app) => {
   app.use(cors());
   app.use(express.static(__dirname + "/public"));
 
-  device(app);
+  user(app);
 
   // error handling
 };

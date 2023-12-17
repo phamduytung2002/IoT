@@ -7,5 +7,6 @@ export const PATHS = {
   HOME: `${BASE_PATH}`,
   NOTFOUND: `${BASE_PATH}*`,
   // profile
+  LOGOUT: `${BASE_PATH}logout`,
   PROFILE: `${BASE_PATH}profile`,
 };

@@ -2,31 +2,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
+import { loginFn } from "../utils/auth";
+import { useLocation, useNavigate } from "react-router-dom";
+import { PATHS } from "../routes/PATHS";
 export const Login = () => {
   const { register, handleSubmit } = useForm();
-  console.log("Login");
-  const onSubmit = (data) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || PATHS.HOME;
+  const onSubmit = async (data) => {
     // Xử lý đăng nhập ở đây
-    console.log(data);
+    const status = await loginFn(JSON.stringify(data));
+    if (status.status === 200) {
+      console.log("Login successfully");
+      console.log("navigate to: ", from);
+      navigate(from, { replace: true });
+    } else {
+      alert("Login failed");
+    }
   };
-
   return (
-    // <div>
-    //   <h2>Login</h2>
-    //   <form onSubmit={handleSubmit(onSubmit)}>
-    //     <label>Email:</label>
-    //     <input type="text" {...register("email")} />
-    //     <br />
-    //     <label>Password:</label>
-    //     <input type="password" {...register("password")} />
-    //     <br />
-    //     <button type="submit">Login</button>
-    //   </form>
-    //   <p>
-    //     Don't have an account? <Link to="/register">Register here</Link>.
-    //   </p>
-    // </div>
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         {/* <Link
@@ -52,18 +47,18 @@ export const Login = () => {
             >
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="username"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your email
+                  Your username
                 </label>
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
+                  type="text"
+                  name="username"
+                  id="username"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
-                  {...register("email")}
+                  {...register("username")}
                   required
                 />
               </div>

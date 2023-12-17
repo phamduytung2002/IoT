@@ -7,32 +7,38 @@ import { registerWithEmailAndPassword } from "../api/registerWithEmailAndPasswor
 
 async function handleUserResponse(data) {
   const user = data;
-
   // Set user information in cookies
-  Cookies.set("userToken", user.token);
-  Cookies.set("systemRole", user.system_role);
+  // Cookies.set("systemRole", user.system_role);
+  // Cookies.set("deviceToken", user.device_token);
+  Cookies.set("userToken", user.data.token);
   Cookies.set("timestamp", new Date());
-  Cookies.set("deviceToken", user.device_token);
 
   return user;
 }
 
-export async function userFn() {
-  // Get user information from cookies
+// Note: Don't need to use this function if you don't need to get user information because of the cookies.get directly in the loginFn function
+// This function has error when using with react-query-auth by returning a promise
 
-  return (
-    Cookies.get("userToken") ||
-    Cookies.get("systemRole") ||
-    Cookies.get("timestamp") ||
-    Cookies.get("deviceToken") ||
-    null
-  );
-}
+// export async function userFn() {
+//   console.log("userFn", Cookies.get("userToken"));
+//   return {
+//     // Get user information from cookies
+//     // systemRole: Cookies.get("systemRole") || null,
+//     // deviceToken: Cookies.get("deviceToken") || null,
+//     userToken: Cookies.get("userToken") || null,
+//     timestamp: Cookies.get("timestamp") || null,
+//   };
+// }
 
 export async function loginFn(data) {
   const response = await loginWithEmailAndPassword(data);
-  const user = await handleUserResponse(response);
-  return user;
+  if (response.data.token) {
+    const user = await handleUserResponse(response);
+    return user;
+  } else {
+    console.log("error database:", response.data);
+    return "Error";
+  }
 }
 
 export async function registerFn(data) {
@@ -43,10 +49,11 @@ export async function registerFn(data) {
 
 export async function logoutFn() {
   // Remove user information from cookies
+  // Cookies.remove("systemRole");
+  // Cookies.remove("deviceToken");
+  console.log("logout");
   Cookies.remove("userToken");
-  Cookies.remove("systemRole");
   Cookies.remove("timestamp");
-  Cookies.remove("deviceToken");
 
   window.location.assign(PATHS.LOGIN);
 }
