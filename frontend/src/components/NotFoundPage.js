@@ -11,7 +11,7 @@ export function NotFoundPage() {
   }, []);
 
   return (
-    <div className="flex grow items-center justify-center">
+    <div className="flex text-red-500 grow items-center justify-center">
       <h1>
         404 - Trang web không tồn tại. Chuyển sang trang trước trong vòng 3s...
       </h1>

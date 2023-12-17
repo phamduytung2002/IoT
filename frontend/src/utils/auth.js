@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { configureAuth } from "react-query-auth";
+// import { configureAuth } from "react-query-auth";
 import { PATHS } from "../routes/PATHS";
 import { loginWithEmailAndPassword } from "../api/loginWithEmailAndPassword";
 import { registerWithEmailAndPassword } from "../api/registerWithEmailAndPassword";

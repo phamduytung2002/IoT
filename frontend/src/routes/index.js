@@ -5,13 +5,13 @@ import { protectedRoutes } from "./protected";
 import { publicRoutes } from "./public";
 import { NotFoundPage } from "../components/NotFoundPage";
 import Home from "../components/Home";
-
+import { userFn } from "../utils/auth";
 export const AppRoutes = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const user = { data: "Bien" };
+  // const user = { data: "Bien" };
   // const user = {};
-  //   const user = userFn();
+  const user = userFn();
 
   const commonRoutes = [
     { path: BASE_PATH, element: <Home /> },
