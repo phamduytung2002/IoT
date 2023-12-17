@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { DevicetModel } = require("../models");
+
 class DeviceRepository {
   // example to create a Device
   // async CreateProduct({ name, desc, type, unit,price, available, suplier, banner }){
