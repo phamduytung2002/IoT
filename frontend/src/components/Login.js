@@ -1,9 +1,8 @@
 // src/components/Login.js
 import React from "react";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { loginFn } from "../utils/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PATHS } from "../routes/PATHS";
 export const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -115,7 +114,7 @@ export const Login = () => {
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <Link
-                  to="#"
+                  to="/auth/register"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Sign up

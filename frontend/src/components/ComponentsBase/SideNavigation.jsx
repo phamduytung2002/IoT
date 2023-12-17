@@ -18,7 +18,7 @@ export default function SideNavigation() {
           <Sidebar.Item href="/" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Item href="profile" icon={HiUser}>
+          <Sidebar.Item href="/profile" icon={HiUser}>
             Users
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiShoppingBag}>

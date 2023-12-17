@@ -5,16 +5,20 @@ import HumidityComponent from "./ComponentsBase/HumiditySensor";
 import { DoorComponent } from "./ComponentsBase/DoorComponent";
 import WeatherChart from "./ComponentsBase/WeatherChart";
 import AddDeviceComponent from "./ComponentsBase/AddDeviceComponent";
+import { useParams } from "react-router-dom";
 
 export const Home = () => {
   const openDoor = true;
+  const { homeId } = useParams();
   return (
     <div className="flex">
       <div className="fixed">
         <SideNavigation />
       </div>
       <div className="ml-80 m-5 p-2">
-        <div className="text-3xl font-bold mb-4 text-center">Home's Biển ID1</div>
+        <div className="text-3xl font-bold mb-4 text-center">
+          Home's Biển - {homeId}
+        </div>
         <div className="rounded-lg bg-slate-300 mb-2 p-4">
           <WeatherChart />
         </div>

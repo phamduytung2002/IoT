@@ -7,11 +7,14 @@ import { getListHome } from "../api/getListHome";
 import React from "react";
 import { Modal, Button, TextInput } from "flowbite-react";
 import { addHome } from "../api/addHome";
+import { useNavigate, Link } from "react-router-dom";
+import { PATHS } from "../routes/PATHS";
 
 export const Profile = () => {
   const [data, setData] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
   const [nameHome, setNameHome] = React.useState("");
+  const navigate = useNavigate();
   function onCloseModal() {
     setOpenModal(false);
   }
@@ -20,7 +23,7 @@ export const Profile = () => {
       try {
         const response = await getListHome();
         setData(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -36,9 +39,9 @@ export const Profile = () => {
         <div className="text-3xl font-bold mb-4 text-center">Home's Biển</div>
         <div className="grid grid-cols-2 gap-4">
           {data?.map((item) => (
-            <div>
+            <Link to={`/home/${item}`}>
               <SmallHomeComponent label={item} />
-            </div>
+            </Link>
           ))}
           <div onClick={() => setOpenModal(true)}>
             <AddSmallHomeComponent />

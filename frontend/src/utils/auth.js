@@ -43,8 +43,12 @@ export async function loginFn(data) {
 
 export async function registerFn(data) {
   const response = await registerWithEmailAndPassword(data);
-  const user = await handleUserResponse(response);
-  return user;
+  if (response.data.username) {
+    return response;
+  } else {
+    console.log("error database:", response.data);
+    return "Error";
+  }
 }
 
 export async function logoutFn() {
