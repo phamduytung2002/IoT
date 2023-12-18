@@ -6,7 +6,19 @@ const HumidityIcon = ({ size, color }) => {
   return <FaTint size={size} color={color} />;
 };
 
-const HumidityComponent = ({ humidity }) => {
+const HumidityComponent = ({
+  humidity,
+  onDeleteDevice,
+  deviceKey,
+  onUpdateDevice,
+}) => {
+  const handleDeleteDevice = () => {
+    // Gọi hàm onDeleteDevice và truyền key của thiết bị cần xóa
+    onDeleteDevice(deviceKey);
+  };
+  const handleUpdateDevice = () => {
+    onUpdateDevice(deviceKey);
+  };
   return (
     <Card>
       <div className="flex">
@@ -26,13 +38,13 @@ const HumidityComponent = ({ humidity }) => {
             </h2>
             <div className="flex justify-center items-center mt-2">
               <button
-                onClick={() => {}}
+                onClick={handleUpdateDevice}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-2"
               >
                 Update Humidity
               </button>
               <button
-                onClick={() => {}}
+                onClick={handleDeleteDevice}
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2 ml-2"
               >
                 Delete Device

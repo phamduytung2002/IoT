@@ -3,8 +3,12 @@ import React from "react";
 import { BsDoorOpen } from "react-icons/bs";
 import { BsDoorClosedFill } from "react-icons/bs";
 import { ToggleSwitch } from "flowbite-react";
-export const DoorComponent = ({ doorStatus }) => {
+export const DoorComponent = ({ doorStatus, onDeleteDevice, deviceKey }) => {
   const [doorStatus_, setDoorStatus_] = React.useState(doorStatus);
+  const handleDeleteDevice = () => {
+    // Gọi hàm onDeleteDevice và truyền key của thiết bị cần xóa
+    onDeleteDevice(deviceKey);
+  };
   return (
     <Card>
       <div className="flex">
@@ -31,7 +35,7 @@ export const DoorComponent = ({ doorStatus }) => {
               }}
             />
             <button
-              onClick={() => {}}
+              onClick={handleDeleteDevice}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2 ml-2"
             >
               Delete Device

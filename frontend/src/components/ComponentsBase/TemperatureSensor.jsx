@@ -2,7 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import { WiThermometer } from "react-icons/wi";
 import { Card } from "flowbite-react";
-const TemperatureDisplay = ({ temperature, unit }) => {
+const TemperatureDisplay = ({
+  temperature,
+  unit,
+  onDeleteDevice,
+  onUpdateDevice,
+  deviceKey,
+}) => {
+  const handleDeleteDevice = () => {
+    // Gọi hàm onDeleteDevice và truyền key của thiết bị cần xóa
+    onDeleteDevice(deviceKey);
+  };
+  const handleUpdateDevice = () => {
+    onUpdateDevice(deviceKey);
+  };
   return (
     <Card>
       <div className="flex">
@@ -20,13 +33,13 @@ const TemperatureDisplay = ({ temperature, unit }) => {
             </h2>
             <div className="flex justify-center items-center mt-2">
               <button
-                onClick={() => {}}
+                onClick={handleUpdateDevice}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-2"
               >
                 Update Temperature
               </button>
               <button
-                onClick={() => {}}
+                onClick={handleDeleteDevice}
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2 ml-2"
               >
                 Delete Device
