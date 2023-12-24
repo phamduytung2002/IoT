@@ -1,15 +1,26 @@
 const { DeviceRepository } = require("../database");
 const { FormateData } = require("../utils");
 
+const { TOPIC1, TOPIC2, HOST, MQTTPORT, MQTTPROTOCOL } = require("../config");
+const mqtt = require("mqtt");
+
+const broker = MQTTPROTOCOL + "://" + HOST;
+// initialize the MQTT client
+const client = mqtt.connect(broker, { MQTTPORT });
+// setup the callbacks
+client.on("connect", () => {
+  console.log("Connected to MQTT Broker!");
+});
+client.on("error", function (error) {
+  console.log(error);
+});
+client.publish(TOPIC1, JSON.stringify("ngu"));
 class DeviceService {
   constructor() {
     this.repository = new DeviceRepository();
+    this.client = client;
   }
-  // example create device
-  //   async CreateDevice(deviceInputs) {
-  //     const devicetResult = await this.repository.CreateDevice(deviceInputs);
-  //     return FormateData(devicetResult);
-  //   }
+
   async CreateDevice(deviceInputs) {
     const { homeID, typeDevice, name } = deviceInputs;
     if (typeDevice === "temperatureSensor") {
@@ -18,8 +29,7 @@ class DeviceService {
       deviceInputs.information = { openOrClose: "close" };
     } else if (typeDevice === "waterSensor") {
       deviceInputs.information = { humidity: "0.5" };
-    }
-    else {
+    } else {
       return "Error Type";
     }
     const devicetResult = await this.repository.CreateDevice({
@@ -131,6 +141,21 @@ class DeviceService {
     const { _id } = deviceInputs;
     const deviceResult = await this.repository.GetInformation({
       _id,
+    });
+    if (deviceResult) {
+      return FormateData(deviceResult);
+    } else {
+      return FormateData(null);
+    }
+  }
+
+  async openOrCloseRemote(deviceInputs) {
+    const { _id, openOrClose } = deviceInputs;
+    const topic = TOPIC1 ;
+    this.client.publish(topic, JSON.stringify(openOrClose));
+    const deviceResult = await this.repository.UpdateDevice({
+      _id,
+      information: { openOrClose },
     });
     if (deviceResult) {
       return FormateData(deviceResult);

@@ -65,12 +65,12 @@ export const Home = () => {
                     unit="24"
                     deviceKey={device._id}
                     onUpdateDevice={async (deviceKey) => {
-                      // await getInformation(
-                      //   JSON.stringify({
-                      //     _id: deviceKey,
-                      //   })
-                      // );
-                      // alert("Update success");
+                      await getInformation(
+                        JSON.stringify({
+                          _id: deviceKey,
+                        })
+                      );
+                      alert("Update success");
                       setRefresh(!refresh);
                     }}
                     onDeleteDevice={async (deviceKey) => {
@@ -92,12 +92,12 @@ export const Home = () => {
                     deviceKey={device._id}
                     humidity={device.information.humidity}
                     onUpdateDevice={async (deviceKey) => {
-                      // await getInformation(
-                      //   JSON.stringify({
-                      //     _id: deviceKey,
-                      //   })
-                      // );
-                      // alert("Update success");
+                      await getInformation(
+                        JSON.stringify({
+                          _id: deviceKey,
+                        })
+                      );
+                      alert("Update success");
                       setRefresh(!refresh);
                     }}
                     onDeleteDevice={async (deviceKey) => {
@@ -127,6 +127,7 @@ export const Home = () => {
                       alert("Delete success");
                       setRefresh(!refresh);
                     }}
+                    
                   />
                 </div>
               );

@@ -3,12 +3,16 @@ import React from "react";
 import { BsDoorOpen } from "react-icons/bs";
 import { BsDoorClosedFill } from "react-icons/bs";
 import { ToggleSwitch } from "flowbite-react";
+import { postCloseOrOpen } from "../../api/postCloseOrOpen";
 export const DoorComponent = ({ doorStatus, onDeleteDevice, deviceKey }) => {
   const [doorStatus_, setDoorStatus_] = React.useState(doorStatus);
   const handleDeleteDevice = () => {
     // Gọi hàm onDeleteDevice và truyền key của thiết bị cần xóa
     onDeleteDevice(deviceKey);
   };
+  // const handleUpdateDevice = (information) => {
+  //   onUpdateDevice(deviceKey, information);
+  // };
   return (
     <Card>
       <div className="flex">
@@ -28,9 +32,15 @@ export const DoorComponent = ({ doorStatus, onDeleteDevice, deviceKey }) => {
               className="text-cyan-700 mb-2"
               checked={doorStatus_}
               label="Toggle me"
-              onChange={() => {
+              onChange={async () => {
                 /// await api set door status in db
                 // update interface
+                await postCloseOrOpen(
+                  JSON.stringify({
+                    _id: deviceKey,
+                    information: { openOrClose: !doorStatus_ },
+                  })
+                );
                 setDoorStatus_(!doorStatus_);
               }}
             />

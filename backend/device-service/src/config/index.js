@@ -12,6 +12,11 @@ module.exports = {
   PORT: process.env.PORT,
   DB_URL: process.env.MONGODB_URI,
   APP_SECRET: process.env.APP_SECRET,
+  HOST: process.env.HOST,
+  MQTTPORT: process.env.MQTTPORT,
+  MQTTPROTOCOL: process.env.MQTTPROTOCOL,
+  TOPIC1: process.env.TOPIC1,
+  TOPIC2: process.env.TOPIC2,
   // Not use
   //   EXCHANGE_NAME: process.env.EXCHANGE_NAME,
   //   MSG_QUEUE_URL: process.env.MSG_QUEUE_URL,

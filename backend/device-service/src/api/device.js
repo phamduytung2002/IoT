@@ -6,6 +6,7 @@ const app = express();
 
 module.exports = (app) => {
   const service = new DeviceService();
+
   // api test
   app.get("/test", function (request, response) {
     console.log("Received 'test' request");
@@ -67,16 +68,27 @@ module.exports = (app) => {
       return res.json({ message: "Error" });
     }
   });
+  app.put("/device/updateByName", async (req, res, next) => {
+    const { name, information } = req.body;
+    try {
+      const { data } = await service.UpdateDeviceByName({ name, information });
+      return res.json(data);
+    } catch (err) {
+      return res.json({ message: "Error" });
+    }
+  });
+  app.post("/device/postCloseOrOpen", UserAuth, async (req, res, next) => {
+    const { _id, information } = req.body;
+    const openOrClose = information.openOrClose;
+    try {
+      const { data } = await service.openOrCloseRemote({ _id, openOrClose });
+      return res.json(data);
+    } catch (err) {
+      console.log(err);
+      return res.json({ message: "Error" });
+    }
+  });
 };
-app.put("/device/updateByName", async (req, res, next) => {
-  const { name, information } = req.body;
-  try {
-    const { data } = await service.UpdateDeviceByName({ name, information });
-    return res.json(data);
-  } catch (err) {
-    return res.json({ message: "Error" });
-  }
-});
 
 // Example about api create device ( route ) with no authentic
 // app.post("/device/create", async (req, res, next) => {
