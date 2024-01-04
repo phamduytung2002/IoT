@@ -100,6 +100,19 @@ class DeviceService {
       return FormateData(null);
     }
   }
+  async UpdateDeviceByName(deviceInputs) {
+    const { name, information } = deviceInputs;
+    const deviceResult = await this.repository.UpdateDeviceByName({
+      name,
+      information,
+    });
+    if (deviceResult) {
+      return FormateData(deviceResult);
+    } else {
+      return FormateData(null);
+    }
+  }
+
   // Delete device by Id
   async DeleteDevice(deviceInputs) {
     const { _id } = deviceInputs;
@@ -151,7 +164,7 @@ class DeviceService {
 
   async openOrCloseRemote(deviceInputs) {
     const { _id, openOrClose } = deviceInputs;
-    const topic = TOPIC1 ;
+    const topic = TOPIC1;
     this.client.publish(topic, JSON.stringify(openOrClose));
     const deviceResult = await this.repository.UpdateDevice({
       _id,

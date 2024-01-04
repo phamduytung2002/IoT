@@ -48,6 +48,7 @@ class DeviceRepository {
     return deviceResult;
   }
   async UpdateDevice({ _id, information }) {
+    // console.log(_id, information)
     const deviceResult = await DeviceModel.findOneAndUpdate(
       { _id },
       { information }
@@ -55,11 +56,16 @@ class DeviceRepository {
     return deviceResult;
   }
   async UpdateDeviceByName({ name, information }) {
-    const deviceResult = await DeviceModel.findOneAndUpdate(
-      { name },
-      { information }
-    );
-    return deviceResult;
+    try {
+      const deviceResult = await DeviceModel.findOneAndUpdate(
+        { name },
+        { information }
+      );
+      return deviceResult;
+    }
+    catch (error){
+      console.log(error)
+    }
   }
   async DeleteDevice({ _id }) {
     const deviceResult = await DeviceModel.findOneAndDelete({

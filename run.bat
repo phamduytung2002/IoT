@@ -11,3 +11,5 @@ start "" npm run dev start
 cd ../../frontend
 @REM npm install
 start "" npm start
+
+cd ..

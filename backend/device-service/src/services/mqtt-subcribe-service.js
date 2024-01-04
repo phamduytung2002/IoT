@@ -1,11 +1,12 @@
-const TOPIC2 = "team_tung_bien_manh_duc_from_device";
-const TOPIC1 = "team_tung_bien_manh_duc_to_device";
+const FROM_DEVICE = "team_tung_bien_manh_duc_from_device";
+const TO_DEVICE = "team_tung_bien_manh_duc_to_device";
 const HOST = "broker.hivemq.com";
 const MQTTPORT = 1883;
 const MQTTPROTOCOL = "mqtt";
 
 const mqtt = require("mqtt");
-
+const DeviceRepository = require("../database/repository/device-repository");
+const repo = new DeviceRepository();
 function subscribe() {
   const broker = MQTTPROTOCOL + "://" + HOST;
   // initialize the MQTT client
@@ -14,14 +15,17 @@ function subscribe() {
   // setup the callbacks
   client.on("connect", () => {
     console.log("Connected to MQTT Broker!");
-    client.subscribe(TOPIC1, (err) => {
+    client.subscribe(FROM_DEVICE, (err) => {
       if (!err) {
-        console.log(`Subscribe to ${TOPIC1} success`);
+        console.log(`Subscribe to ${FROM_DEVICE} success`);
       }
     });
 
     client.on("message", (topic, message) => {
       console.log(`Received message on topic ${topic}: ${message.toString()}`);
+      var obj = JSON.parse(message);
+      // console.log(typeof obj);
+      repo.UpdateDevice(obj);
     });
   });
 
