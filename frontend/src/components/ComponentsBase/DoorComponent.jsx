@@ -6,6 +6,7 @@ import { ToggleSwitch } from "flowbite-react";
 import { postCloseOrOpen } from "../../api/postCloseOrOpen";
 export const DoorComponent = ({ doorStatus, onDeleteDevice, deviceKey, name }) => {
   const [doorStatus_, setDoorStatus_] = React.useState(doorStatus);
+  console.log("doorStatus", doorStatus);
   const handleDeleteDevice = () => {
     // Gọi hàm onDeleteDevice và truyền key của thiết bị cần xóa
     onDeleteDevice(deviceKey);

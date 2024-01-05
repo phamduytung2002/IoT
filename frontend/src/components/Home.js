@@ -33,6 +33,7 @@ export const Home = () => {
       try {
         const response = await getAllDevice({ homeID: homeId });
         setData(response?.data);
+        console.log("refresh success");
       } catch (error) {
         console.error("Error:", error);
       }
@@ -118,7 +119,7 @@ export const Home = () => {
               return (
                 <div>
                   <DoorComponent
-                    openDoor={device.information.openOrClose}
+                    doorStatus={device.information.openOrClose}
                     deviceKey={device._id}
                     onDeleteDevice={async (deviceKey) => {
                       await deleteDevice(
