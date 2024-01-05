@@ -119,7 +119,7 @@ export const Home = () => {
               return (
                 <div>
                   <DoorComponent
-                    doorStatus={device.information.openOrClose}
+                    doorStatus={device.information.openOrClose=="open"?true:false}
                     deviceKey={device._id}
                     onDeleteDevice={async (deviceKey) => {
                       await deleteDevice(
