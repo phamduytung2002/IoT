@@ -2,7 +2,8 @@
 #include <MFRC522.h>
 #include <ESP32Servo.h>
 #include <WiFi.h>
-#include "PubSubClient.h"
+#include "PubSubClient.h" 
+#include <ArduinoJson.h>
 #include <string.h>
 #define RST_PIN         4
 #define SS_PIN          5
@@ -12,8 +13,8 @@ int ID1[4] = {179, 42, 138, 253}; // RFID card identifier
 Servo MyServo;
 static const int servoPin = 13;
 MFRC522 mfrc522(SS_PIN, RST_PIN); 
-const char* ssid = "StrongerDSLab";
-const char* password = "dslab123";
+const char* ssid = "93160445546277484";
+const char* password = "46840259898";
 const char* mqttServer = "broker.hivemq.com";
 int port = 1883;
 WiFiClient espClient;
@@ -23,6 +24,8 @@ char mac[50];
 char clientId[50];
 int status_door = 0;
 int dem = 0;
+
+String name = "rfid";
 
 void setup() 
 {  
@@ -105,16 +108,26 @@ void openDoorByMrfc(){
 
   if (UID[0] == ID1[0] && UID[1] == ID1[1] && UID[2] == ID1[2] && UID[3] == ID1[3]) {
     dem ++;
+    DynamicJsonDocument jsonmsg(1024);
+    jsonmsg["name"] = name;
+    char msg[100];
+
     // Serial.print("Biến Đếm: ");
     // Serial.println(dem);
 
     if ((dem % 2) == 1) {
       status_door = 1;
-      Serial.println("OPEN");    
+      Serial.println("OPEN");   
+      jsonmsg["information"]["openOrClose"] = "open"; 
+      serializeJson(jsonmsg, msg);
     } else {
       status_door = 2;
       Serial.println("CLOSE");       
+      jsonmsg["information"]["openOrClose"] = "close"; 
+      serializeJson(jsonmsg, msg);
     }
+    if (client.publish("team_tung_bien_manh_duc_from_device", msg) != true) 
+      Serial.println("Error sending message");
   } else {
     Serial.println("SAI THẺ........");
   }
@@ -127,26 +140,27 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.print("Message arrived on topic: ");
   // Serial.print(topic);
   // Serial.print(". Message: ");
-  String stMessage;
-  
-  for (int i = 0; i < length; i++) {
-    if(char(message[i]) == '"') continue;
-    // Serial.print((char)message[i]);
-    stMessage += (char)message[i];
-  }
-  Serial.println();
+
+  StaticJsonDocument<256> jsonmsg;
+  deserializeJson(jsonmsg, message, length);
+
+  String received_name = jsonmsg["name"];
 
   if (String(topic) == "team_tung_bien_manh_duc_to_device") {
-    Serial.print("Changing output to ");
-    // Serial.print(stMessage);
-    if (String(stMessage) == "open") {
-      // Serial.println("open ----");
-      status_door = 1;
-      // MyServo.write(90);
-    } else if (String(stMessage) == "close") {
-      // Serial.println("close -----");
-      status_door = 2;
-      // MyServo.write(-90);
+    if(received_name==name){
+      Serial.println(name);
+      String stMessage = jsonmsg["information"]["openOrClose"];
+      Serial.print("Changing output to ");
+      // Serial.print(stMessage);
+      if (String(stMessage) == "open") {
+        // Serial.println("open ----");
+        status_door = 1;
+        // MyServo.write(90);
+      } else if (String(stMessage) == "close") {
+        // Serial.println("close -----");
+        status_door = 2;
+        // MyServo.write(-90);
+      }
     }
   }
   openDoorByMrfc();
@@ -158,6 +172,6 @@ void loop() {
   }
 
   client.loop();
-  // openDoorByMrfc();
+  openDoorByMrfc();
  
 }
