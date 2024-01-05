@@ -15,7 +15,7 @@ export const AppRoutes = () => {
   // console.log(user);
 
   const commonRoutes = [
-    { path: BASE_PATH, element: <Home /> },
+    // { path: BASE_PATH, element: <Home /> },
     {
       path: PATHS.NOTFOUND,
       element: <NotFoundPage />,

@@ -1,7 +1,8 @@
 import Home from "../components/Home";
 import { Profile } from "../components/Profile";
-import { PATHS } from "./PATHS";
+import { PATHS, BASE_PATH } from "./PATHS";
 export const protectedRoutes = [
+  { path: BASE_PATH, element: <Home /> },
   {
     path: PATHS.PROFILE,
     element: (
