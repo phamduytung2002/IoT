@@ -8,6 +8,7 @@ const TemperatureDisplay = ({
   onDeleteDevice,
   onUpdateDevice,
   deviceKey,
+  name
 }) => {
   const handleDeleteDevice = () => {
     // Gọi hàm onDeleteDevice và truyền key của thiết bị cần xóa
@@ -20,7 +21,7 @@ const TemperatureDisplay = ({
     <Card>
       <div className="flex">
         <div className="">
-          <div className="text-center">Temp Area 1</div>
+          <div className="text-center">{name}</div>
           <WiThermometer size={180} color="#ff5733" />
         </div>
         <div className="flex justify-center items-center w-60">

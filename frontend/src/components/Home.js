@@ -82,6 +82,7 @@ export const Home = () => {
                       alert("Delete success");
                       setRefresh(!refresh);
                     }}
+                    name={device.name}
                   />
                 </div>
               );

@@ -25,7 +25,7 @@ function subscribe() {
       console.log(`Received message on topic ${topic}: ${message.toString()}`);
       var obj = JSON.parse(message);
       console.log(obj);
-      repo.UpdateDevice(obj);
+      repo.UpdateDeviceByName(obj);
     });
   });
 
