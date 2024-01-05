@@ -48,7 +48,8 @@ class DeviceRepository {
     return deviceResult;
   }
   async UpdateDevice({ _id, information }) {
-    // console.log(_id, information)
+    console.log(_id, information)
+    console.log(typeof _id, typeof information)
     const deviceResult = await DeviceModel.findOneAndUpdate(
       { _id },
       { information }
@@ -63,7 +64,7 @@ class DeviceRepository {
       );
       return deviceResult;
     }
-    catch (error){
+    catch (error) {
       console.log(error)
     }
   }

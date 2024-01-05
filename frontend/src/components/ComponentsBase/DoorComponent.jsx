@@ -4,7 +4,7 @@ import { BsDoorOpen } from "react-icons/bs";
 import { BsDoorClosedFill } from "react-icons/bs";
 import { ToggleSwitch } from "flowbite-react";
 import { postCloseOrOpen } from "../../api/postCloseOrOpen";
-export const DoorComponent = ({ doorStatus, onDeleteDevice, deviceKey }) => {
+export const DoorComponent = ({ doorStatus, onDeleteDevice, deviceKey, name }) => {
   const [doorStatus_, setDoorStatus_] = React.useState(doorStatus);
   const handleDeleteDevice = () => {
     // Gọi hàm onDeleteDevice và truyền key của thiết bị cần xóa
@@ -17,7 +17,7 @@ export const DoorComponent = ({ doorStatus, onDeleteDevice, deviceKey }) => {
     <Card>
       <div className="flex">
         <div>
-          <div className="text-center">Door Area 1</div>
+          <div className="text-center">{name}</div>
           <div className="flex justify-center items-center">
             {doorStatus_ ? (
               <BsDoorOpen size={180} color="#ff5733" />
@@ -37,7 +37,7 @@ export const DoorComponent = ({ doorStatus, onDeleteDevice, deviceKey }) => {
                 // update interface
                 await postCloseOrOpen(
                   JSON.stringify({
-                    _id: deviceKey,
+                    name: name,
                     information: { openOrClose: !doorStatus_ },
                   })
                 );

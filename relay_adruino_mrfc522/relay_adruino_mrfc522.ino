@@ -12,8 +12,8 @@ int ID1[4] = {179, 42, 138, 253}; // RFID card identifier
 Servo MyServo;
 static const int servoPin = 13;
 MFRC522 mfrc522(SS_PIN, RST_PIN); 
-const char* ssid = "SOICT-B1-01_2G";
-const char* password = "12345678";
+const char* ssid = "StrongerDSLab";
+const char* password = "dslab123";
 const char* mqttServer = "broker.hivemq.com";
 int port = 1883;
 WiFiClient espClient;

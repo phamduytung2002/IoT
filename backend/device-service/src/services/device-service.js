@@ -163,11 +163,11 @@ class DeviceService {
   }
 
   async openOrCloseRemote(deviceInputs) {
-    const { _id, openOrClose } = deviceInputs;
+    const { name, openOrClose } = deviceInputs;
     const topic = TOPIC1;
-    this.client.publish(topic, JSON.stringify(openOrClose));
+    this.client.publish(topic, JSON.stringify({ "name": name, "information": { "openOrClose": openOrClose?"open":"close" } }));
     const deviceResult = await this.repository.UpdateDevice({
-      _id,
+      name,
       information: { openOrClose },
     });
     if (deviceResult) {

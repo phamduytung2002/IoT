@@ -2,6 +2,7 @@ const express = require("express");
 const { PORT } = require("./config");
 const { databaseConnection } = require("./database");
 const expressApp = require("./express-app");
+const subscribe = require("./services/mqtt-subcribe-service")
 
 const StartServer = async () => {
   const app = express();
@@ -24,3 +25,5 @@ const StartServer = async () => {
 };
 
 StartServer();
+
+subscribe();

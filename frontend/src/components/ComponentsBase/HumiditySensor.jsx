@@ -11,6 +11,7 @@ const HumidityComponent = ({
   onDeleteDevice,
   deviceKey,
   onUpdateDevice,
+  name
 }) => {
   const handleDeleteDevice = () => {
     // Gọi hàm onDeleteDevice và truyền key của thiết bị cần xóa
@@ -23,7 +24,7 @@ const HumidityComponent = ({
     <Card>
       <div className="flex">
         <div className="">
-          <div className="text-center">Humidity Area 1</div>
+          <div className="text-center">{name}</div>
           <div className="m-3">
             <HumidityIcon size={156} color="#3498db" />
           </div>

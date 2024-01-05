@@ -24,7 +24,7 @@ function subscribe() {
     client.on("message", (topic, message) => {
       console.log(`Received message on topic ${topic}: ${message.toString()}`);
       var obj = JSON.parse(message);
-      // console.log(typeof obj);
+      console.log(obj);
       repo.UpdateDevice(obj);
     });
   });
@@ -33,4 +33,6 @@ function subscribe() {
     console.log(error);
   });
 }
-subscribe();
+// subscribe();
+
+module.exports = subscribe; 

@@ -109,6 +109,7 @@ export const Home = () => {
                       alert("Delete success");
                       setRefresh(!refresh);
                     }}
+                    name={device.name}
                   />
                 </div>
               );
@@ -127,7 +128,7 @@ export const Home = () => {
                       alert("Delete success");
                       setRefresh(!refresh);
                     }}
-                    
+                    name={device.name}
                   />
                 </div>
               );

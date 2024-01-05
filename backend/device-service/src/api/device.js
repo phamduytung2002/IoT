@@ -78,10 +78,10 @@ module.exports = (app) => {
     }
   });
   app.post("/device/postCloseOrOpen", UserAuth, async (req, res, next) => {
-    const { _id, information } = req.body;
+    const { name, information } = req.body;
     const openOrClose = information.openOrClose;
     try {
-      const { data } = await service.openOrCloseRemote({ _id, openOrClose });
+      const { data } = await service.openOrCloseRemote({ name, openOrClose });
       return res.json(data);
     } catch (err) {
       console.log(err);
