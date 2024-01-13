@@ -63,7 +63,7 @@ export const Home = () => {
                 <div>
                   <TemperatureDisplay
                     temperature={device.information.temperature}
-                    unit="24"
+                    unit="C"
                     deviceKey={device._id}
                     onUpdateDevice={async (deviceKey) => {
                       await getInformation(
@@ -192,7 +192,7 @@ export const Home = () => {
                     }
                   }}
                 >
-                  {"Add new home"}
+                  {"Add new device"}
                 </Button>
                 <Button color="gray" onClick={() => setOpenModal(false)}>
                   No, cancel

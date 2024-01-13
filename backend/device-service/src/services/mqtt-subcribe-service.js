@@ -23,9 +23,13 @@ function subscribe() {
 
     client.on("message", (topic, message) => {
       console.log(`Received message on topic ${topic}: ${message.toString()}`);
-      var obj = JSON.parse(message);
-      console.log(obj);
-      repo.UpdateDeviceByName(obj);
+      try{
+        var obj = JSON.parse(message);
+        console.log(obj);
+        repo.UpdateDeviceByName(obj);
+      } catch(err){
+        console.log(err);
+      }
     });
   });
 
